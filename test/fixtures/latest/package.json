@@ -1,0 +1,9 @@
+{
+  "name": "latest",
+  "description": "latest fixture",
+  "license": "ISC",
+  "dependencies": {
+    "oubliette": "1.0.4",
+	"semver": "^7.6.0"
+  }
+}

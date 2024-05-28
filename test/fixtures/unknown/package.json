@@ -1,0 +1,8 @@
+{
+  "name": "unknown",
+  "description": "unknown fixture",
+  "license": "ISC",
+  "dependencies": {
+    "foo": "1.0.0"
+  }
+}
