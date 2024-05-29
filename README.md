@@ -32,7 +32,7 @@ Reports packages that are not included in the tech radar
   "tech-radar/hold": [
     "error",
     {
-      "adopted": [
+      "adopt": [
         "pino",
         "pino-pretty",
       ],
