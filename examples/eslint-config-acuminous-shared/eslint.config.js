@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const plugin = require('eslint-plugin-tech-radar');
 const radar = require('./dependency-radar.json');
 

@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 const plugin = require('eslint-plugin-tech-radar');
 const { config, radar } = require('eslint-config-acuminous-shared');
 
