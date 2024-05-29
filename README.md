@@ -8,41 +8,33 @@ One gotcha is that to be useful the latest shareable configuration must always b
 
 ## Rules
 
-### tech-radar/hold
+### tech-radar/adherence
 
-Reports packages that should be avoided
+Reports packages that that do not adhere to the tech radar
 
 ```js
-  "tech-radar/hold": [
+  "tech-radar/adherence": [
     "error",
     {
       "hold": [
-        "prisma"
+        "prisma",
+        "winston",
+        "bunyan"
       ],
-      "documentation": "https://github.com/acuminouns/engineering/wiki/tech-radar/hold"
-    }
-  ]
-```  
-
-### tech-radar/unknown
-
-Reports packages that are not included in the tech radar
-
-```js
-  "tech-radar/hold": [
-    "error",
-    {
+      "access": [
+        "@pgtyped/query"
+      ],
+      "trial": [
+        "orchid-orm"
+      ],
       "adopt": [
         "pino",
-        "pino-pretty",
+        "sequelize"
       ],
-      "hold": [
-        "prisma"
-      ],
-      "documentation": "https://github.com/acuminouns/engineering/wiki/tech-radar/adoption-process"
+      "documentation": "https://github.com/my-organisation/tech-radar"
     }
   ]
-```
+``` 
 
 ### tech-radar/latest
 
@@ -53,7 +45,7 @@ Requires the latest version of a module is installed
     "error",
     {
       "packages": [
-        "eslint-config-shared-organisation-rules"
+        "eslint-config-my-organisation"
       ]
     }
   ]
