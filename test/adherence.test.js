@@ -2,8 +2,11 @@ const path = require('node:path');
 const { ESLint } = require('eslint');
 
 describe('tech-radar/adherence', () => {
+
+  const cwd = path.resolve(__dirname, 'fixtures', 'adherence');
+
   it('should report held packages', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -34,7 +37,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should report held packages that are duplicated in another "ring"', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -68,7 +71,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should report held packages that are also "ignored"', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -89,7 +92,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should allow adopted packages', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -107,7 +110,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should report assess packages', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -138,7 +141,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should allow trial packages', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -156,7 +159,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should report unknown packages', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -184,7 +187,7 @@ describe('tech-radar/adherence', () => {
   });
 
   it('should tolerate unknown packages that are ignored', async () => {
-    const results = await createLinter('adherence', {
+    const results = await createLinter({
       'tech-radar/adherence': [
         'error',
         {
@@ -200,25 +203,23 @@ describe('tech-radar/adherence', () => {
     expect(results[0]).toHaveProperty('errorCount', 0);
     expect(results[0]).toHaveProperty('warningCount', 0);
   });
+
+  function createLinter(rules) {
+    return new ESLint({
+      extensions: ['.json'],
+      cwd,
+      overrideConfig: {
+        overrides: [
+          {
+            plugins: ['eslint-plugin-tech-radar'],
+            files: ['*.json'],
+            parser: 'eslint-plugin-tech-radar',
+            rules,
+          },
+        ],
+      },
+      ignore: false,
+      useEslintrc: false,
+    });
+  }
 });
-
-function createLinter(fixture, rules) {
-  const cwd = path.resolve(__dirname, 'fixtures', fixture);
-
-  return new ESLint({
-    extensions: ['.json'],
-    cwd,
-    overrideConfig: {
-      overrides: [
-        {
-          plugins: ['eslint-plugin-tech-radar'],
-          files: ['*.json'],
-          parser: 'eslint-plugin-tech-radar',
-          rules,
-        },
-      ],
-    },
-    ignore: false,
-    useEslintrc: false,
-  });
-}

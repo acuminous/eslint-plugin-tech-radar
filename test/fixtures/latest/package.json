@@ -3,9 +3,11 @@
   "description": "latest fixture",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^1.1.3",
+    "eslint-plugin-tech-radar": "file:../../..",
+    "lodash": "latest",
     "oubliette": "1.0.4",
-	  "chalk": "^1.0.0",
-    "local": "file:../local",
+    "zunit": "latest",
     "missing": "1.0.0"
   }
 }

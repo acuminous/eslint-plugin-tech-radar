@@ -2,14 +2,19 @@ const path = require('node:path');
 const { ESLint } = require('eslint');
 
 describe('latest', () => {
-  it('should report stale packages', async () => {
-    const results = await createLinter('latest', {
+
+  const cwd = path.resolve(__dirname, 'fixtures', 'latest');
+
+  it('should report stale semver packages', async () => {
+
+    const results = await createLinter({
       'tech-radar/latest': [
         'error',
         {
           packages: [
             'chalk',
           ],
+          cwd,
         },
       ],
     }).lintFiles('package.json');
@@ -32,14 +37,66 @@ describe('latest', () => {
     );
   });
 
-  it('should ignore fresh packages', async () => {
-    const results = await createLinter('latest', {
+  it('should ignore fresh semver packages', async () => {
+    const results = await createLinter({
       'tech-radar/latest': [
         'error',
         {
           packages: [
             'oubliette',
           ],
+          cwd,
+        },
+      ],
+    }).lintFiles('package.json');
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('warningCount', 0);
+  });
+
+  it('should report stale latest packages', async () => {
+
+    const results = await createLinter({
+      'tech-radar/latest': [
+        'error',
+        {
+          packages: [
+            'zunit',
+          ],
+          cwd,
+        },
+      ],
+    }).lintFiles('package.json');
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty('errorCount', 1);
+    expect(results[0]).toHaveProperty('warningCount', 0);
+    expect(results[0].messages).toHaveLength(1);
+    expect(results[0].messages[0]).toHaveProperty(
+      'ruleId',
+      'tech-radar/latest',
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      'messageId',
+      'stale',
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      'message',
+      "Package 'zunit' version must be 4.0.2.",
+    );
+  });
+
+  it('should ignore fresh latest packages', async () => {
+
+    const results = await createLinter({
+      'tech-radar/latest': [
+        'error',
+        {
+          packages: [
+            'lodash',
+          ],
+          cwd,
         },
       ],
     }).lintFiles('package.json');
@@ -50,13 +107,14 @@ describe('latest', () => {
   });
 
   it('should tolerate local packages', async () => {
-    const results = await createLinter('latest', {
+    const results = await createLinter({
       'tech-radar/latest': [
         'error',
         {
           packages: [
-            'local',
+            'eslint-plugin-tech-radar',
           ],
+          cwd,
         },
       ],
     }).lintFiles('package.json');
@@ -67,13 +125,14 @@ describe('latest', () => {
   });
 
   it('should report missing packages', async () => {
-    const results = await createLinter('latest', {
+    const results = await createLinter({
       'tech-radar/latest': [
         'error',
         {
           packages: [
             'missing',
           ],
+          cwd,
         },
       ],
     }).lintFiles('package.json');
@@ -95,25 +154,24 @@ describe('latest', () => {
       "Package 'missing' is not installed.",
     );
   });
+
+  function createLinter(rules) {
+    return new ESLint({
+      extensions: ['.json'],
+      cwd,
+      overrideConfig: {
+        overrides: [
+          {
+            plugins: ['eslint-plugin-tech-radar'],
+            files: ['*.json'],
+            parser: 'eslint-plugin-tech-radar',
+            rules,
+          },
+        ],
+      },
+      ignore: false,
+      useEslintrc: false,
+    });
+  }
+
 });
-
-function createLinter(fixture, rules) {
-  const cwd = path.resolve(__dirname, 'fixtures', fixture);
-
-  return new ESLint({
-    extensions: ['.json'],
-    cwd,
-    overrideConfig: {
-      overrides: [
-        {
-          plugins: ['eslint-plugin-tech-radar'],
-          files: ['*.json'],
-          parser: 'eslint-plugin-tech-radar',
-          rules,
-        },
-      ],
-    },
-    ignore: false,
-    useEslintrc: false,
-  });
-}

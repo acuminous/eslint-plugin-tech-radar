@@ -34,4 +34,5 @@ Assuming the rule is used with the following options and the current version of 
 ## Options
 
 - `packages: string[]`: An array of dependencies that must be installed at their latest versions.
+- `cwd: string`: The working directory to use for npm commands. This was required for testing and is not expected to be useful in production.
 

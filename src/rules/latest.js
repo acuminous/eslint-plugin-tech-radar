@@ -24,6 +24,9 @@ const rule = {
               type: 'string',
             },
           },
+          cwd: {
+            type: 'string',
+          },
         },
         additionalProperties: false,
       },
@@ -33,7 +36,8 @@ const rule = {
     return {
       'Program:exit': (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
-        const { packages = [] } = (context.options[0] || {});
+        const { packages = [], cwd } = (context.options[0] || {});
+        const options = { cwd, stdio: 'pipe' };
 
         const { text } = context.getSourceCode();
         const packageJson = new PackageJson(text);
@@ -44,10 +48,25 @@ const rule = {
             if (!packages.includes(dependency)) return;
 
             const expression = dependencies[dependency];
-            if (!semver.valid(expression) && !semver.validRange(expression)) return;
+            if (expression.match(/^(?:file:|git:|github:|git\+ssh:|git\+https:|git\+http:|https:|http:)/)) return;
 
-            const { [dependency]: installed } = npm({ format }).ls({ json: true }).dependencies || {};
-            if (!installed) {
+            let installed;
+            try {
+              const { [dependency]: _installed } = npm({ options, format }).ls({ json: true }).dependencies || {};
+              installed = _installed;
+            } catch (err) {
+              if (!err.stdout) throw err;
+              const output = String(err.stdout);
+              try {
+                const json = JSON.parse(output);
+                const { [dependency]: _installed } = json.dependencies || {};
+                installed = _installed;
+              } catch (_) {
+                throw new Error(`Error listing dependencies:\n${output}`);
+              }
+            }
+
+            if (!installed || installed.missing) {
               context.report({
                 node,
                 messageId: 'missing',
@@ -58,7 +77,7 @@ const rule = {
               return;
             }
 
-            const latest = npm({ format }).view(dependency, { json: true });
+            const latest = npm({ cwd, format }).view(dependency, { json: true });
 
             if (!semver.eq(installed.version, latest.version)) {
               context.report({
