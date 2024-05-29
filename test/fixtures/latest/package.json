@@ -7,7 +7,6 @@
     "eslint-plugin-tech-radar": "file:../../..",
     "lodash": "latest",
     "oubliette": "1.0.4",
-    "zunit": "latest",
-    "missing": "1.0.0"
+    "zunit": "latest"
   }
 }

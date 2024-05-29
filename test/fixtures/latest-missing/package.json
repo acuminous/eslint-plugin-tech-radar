@@ -1,0 +1,8 @@
+{
+  "name": "latest-missing",
+  "description": "latest-missing fixture",
+  "license": "ISC",
+  "dependencies": {
+    "missing": "1.0.0"
+  }
+}

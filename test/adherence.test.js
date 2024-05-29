@@ -3,7 +3,11 @@ const { ESLint } = require('eslint');
 
 describe('tech-radar/adherence', () => {
 
-  const cwd = path.resolve(__dirname, 'fixtures', 'adherence');
+  let cwd;
+
+  beforeEach(() => {
+    cwd = path.resolve(__dirname, 'fixtures', 'adherence');
+  });
 
   it('should report held packages', async () => {
     const results = await createLinter({

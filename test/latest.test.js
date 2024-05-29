@@ -3,7 +3,11 @@ const { ESLint } = require('eslint');
 
 describe('latest', () => {
 
-  const cwd = path.resolve(__dirname, 'fixtures', 'latest');
+  let cwd;
+
+  beforeEach(() => {
+    cwd = path.resolve(__dirname, 'fixtures', 'latest');
+  });
 
   it('should report stale semver packages', async () => {
 
@@ -124,35 +128,43 @@ describe('latest', () => {
     expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
-  it('should report missing packages', async () => {
-    const results = await createLinter({
-      'tech-radar/latest': [
-        'error',
-        {
-          packages: [
-            'missing',
-          ],
-          cwd,
-        },
-      ],
-    }).lintFiles('package.json');
+  describe('latest-missing', () => {
 
-    expect(results).toHaveLength(1);
-    expect(results[0]).toHaveProperty('errorCount', 1);
-    expect(results[0]).toHaveProperty('warningCount', 0);
-    expect(results[0].messages).toHaveLength(1);
-    expect(results[0].messages[0]).toHaveProperty(
-      'ruleId',
-      'tech-radar/latest',
-    );
-    expect(results[0].messages[0]).toHaveProperty(
-      'messageId',
-      'missing',
-    );
-    expect(results[0].messages[0]).toHaveProperty(
-      'message',
-      "Package 'missing' is not installed.",
-    );
+    beforeEach(() => {
+      cwd = path.resolve(__dirname, 'fixtures', 'latest-missing');
+    });
+
+    it('should report missing packages', async () => {
+      const results = await createLinter({
+        'tech-radar/latest': [
+          'error',
+          {
+            packages: [
+              'missing',
+            ],
+            cwd,
+          },
+        ],
+      }).lintFiles('package.json');
+
+      expect(results).toHaveLength(1);
+      expect(results[0]).toHaveProperty('errorCount', 1);
+      expect(results[0]).toHaveProperty('warningCount', 0);
+      expect(results[0].messages).toHaveLength(1);
+      expect(results[0].messages[0]).toHaveProperty(
+        'ruleId',
+        'tech-radar/latest',
+      );
+      expect(results[0].messages[0]).toHaveProperty(
+        'messageId',
+        'missing',
+      );
+      expect(results[0].messages[0]).toHaveProperty(
+        'message',
+        "Package 'missing' is not installed.",
+      );
+    });
+
   });
 
   function createLinter(rules) {
