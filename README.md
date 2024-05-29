@@ -51,12 +51,11 @@ Reports packages that that do not adhere to the tech radar
   ]
 ``` 
 
-The linter will fail if package.json includes a dependency that is on hold or under assessment.
-Use the `ignore` array to suppress errors about a dependency without removing it from `hold` or `access`.
+The linter will fail if package.json includes a dependency that is on hold or under assessment. Use the `ignore` array to suppress errors about a dependency without removing it from `hold` or `access`. Works with production, development, peer and optional dependencies.
 
 ### tech-radar/latest
 
-Requires the latest version of a module is installed. 
+Requires the latest version of a module is installed. Works with production, development and peer dependencies and optional dependencies (if installed).
 
 ```js
   "tech-radar/latest": [
