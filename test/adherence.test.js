@@ -106,12 +106,12 @@ describe('tech-radar/adherence', () => {
     expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
-  it('should allow accessed packages', async () => {
+  it('should report assess packages', async () => {
     const results = await createLinter('adherence', {
       'tech-radar/adherence': [
         'error',
         {
-          access: [
+          assess: [
             'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
@@ -120,8 +120,21 @@ describe('tech-radar/adherence', () => {
     }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
-    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('errorCount', 1);
     expect(results[0]).toHaveProperty('warningCount', 0);
+    expect(results[0].messages).toHaveLength(1);
+    expect(results[0].messages[0]).toHaveProperty(
+      'ruleId',
+      'tech-radar/adherence',
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      'messageId',
+      'assessment',
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      'message',
+      "Package 'foo' is being assessed and should not be depended upon. See https://github.com/acuminous/tech-radar for more details.",
+    );
   });
 
   it('should allow trial packages', async () => {

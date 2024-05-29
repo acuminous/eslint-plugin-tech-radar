@@ -34,7 +34,7 @@ Reports packages that that do not adhere to the tech radar
         "winston",
         "bunyan"
       ],
-      "access": [
+      "assess": [
         "@pgtyped/query"
       ],
       "trial": [
@@ -50,6 +50,9 @@ Reports packages that that do not adhere to the tech radar
     }
   ]
 ``` 
+
+The linter will fail if package.json includes a dependency that is on hold or under assessment.
+Use the `ignore` array to suppress errors about a dependency without removing it from `hold` or `access`.
 
 ### tech-radar/latest
 

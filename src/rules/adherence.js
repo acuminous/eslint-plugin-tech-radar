@@ -4,6 +4,7 @@ const rule = {
   meta: {
     type: 'problem',
     messages: {
+      assessment: "Package '{{ dependency }}' is being assessed and should not be depended upon. See {{documentation}} for more details.",
       discouraged: "Package '{{ dependency }}' is discouraged. See {{documentation}} for more details.",
       unknown: "Package '{{ dependency }}' is not on the tech radar. See {{documentation}} for more details.",
     },
@@ -22,7 +23,7 @@ const rule = {
               type: 'string',
             },
           },
-          access: {
+          assess: {
             type: 'array',
             items: {
               type: 'string',
@@ -62,8 +63,8 @@ const rule = {
       'Program:exit': (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
 
-        const { hold = [], access = [], trial = [], adopt = [], ignore = [], documentation } = (context.options[0] || {});
-        const allowed = [].concat(access, trial, adopt, ignore);
+        const { hold = [], assess = [], trial = [], adopt = [], ignore = [], documentation } = (context.options[0] || {});
+        const allowed = [].concat(trial, adopt, ignore);
 
         const { text } = context.getSourceCode();
         const packageJson = new PackageJson(text);
@@ -74,6 +75,15 @@ const rule = {
               context.report({
                 node,
                 messageId: 'discouraged',
+                data: {
+                  dependency,
+                  documentation,
+                },
+              });
+            } else if (assess.includes(dependency)) {
+              context.report({
+                node,
+                messageId: 'assessment',
                 data: {
                   dependency,
                   documentation,
