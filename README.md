@@ -10,7 +10,7 @@ A [tech radar](https://github.com/thoughtworks/build-your-own-radar) unfortunate
 
 Instead, the approach taken by this module is to write a custom eslint plugin for checking the dependencies listed in package.json. The rules can be defined in a [shared configuration](https://eslint.org/docs/latest/extend/shareable-configs), and just like eslint, run automatically on pre-commit/pre-push hooks and as part of a CI/CD pipeline. You also have a familiar escape hatch, should teams need to downgrade, ignore or reconfigure rules on a repository by repository basis. Better yet, changes to the rules will naturally be accompanied by documented discussion in the form of issues and/or pull requests.
 
-One snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radar-latest) for ensuring that the latest version of a module is installed. Configure this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available.
+One snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Configure this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available.
 
 ## How to use
 
