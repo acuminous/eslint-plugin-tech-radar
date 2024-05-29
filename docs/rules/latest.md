@@ -15,8 +15,8 @@ Assuming the rule is used with the following options and the current version of 
 
 ```json
 {
-  "dependencies": {
-    "prisma": "^1.0.0"
+  "devDependencies": {
+    "eslint-config-my-organisation": "^1.0.0"
   }
 }
 ```
@@ -25,8 +25,8 @@ Assuming the rule is used with the following options and the current version of 
 
 ```json
 {
-  "dependencies": {
-    "prisma": "^1.0.0"
+  "devDependencies": {
+    "eslint-config-my-organisation": "^1.0.0"
   }
 }
 ```
