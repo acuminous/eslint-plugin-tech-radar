@@ -33,6 +33,61 @@ describe('tech-radar/adherence', () => {
     );
   });
 
+  it('should report held packages that are duplicated in another "ring"', async () => {
+    const results = await createLinter('adherence', {
+      'tech-radar/adherence': [
+        'error',
+        {
+          hold: [
+            'foo',
+          ],
+          adopt: [
+            'foo'
+          ],
+          documentation: 'https://github.com/acuminous/tech-radar',
+        }
+      ],
+    }).lintFiles("package.json");
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty('errorCount', 1);
+    expect(results[0]).toHaveProperty('warningCount', 0);
+    expect(results[0].messages).toHaveLength(1);
+    expect(results[0].messages[0]).toHaveProperty(
+      'ruleId',
+      'tech-radar/adherence',
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      'messageId',
+      'discouraged',
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      'message',
+      "Package 'foo' is discouraged. See https://github.com/acuminous/tech-radar for more details.",
+    );
+  });
+
+  it('should report held packages that are also "ignored"', async () => {
+    const results = await createLinter('adherence', {
+      'tech-radar/adherence': [
+        'error',
+        {
+          hold: [
+            'foo',
+          ],
+          ignore: [
+            'foo'
+          ],
+          documentation: 'https://github.com/acuminous/tech-radar',
+        }
+      ],
+    }).lintFiles("package.json");
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('warningCount', 0);
+  });
+
   it('should allow adopted packages', async () => {
     const results = await createLinter('adherence', {
       "tech-radar/adherence": [
@@ -113,6 +168,24 @@ describe('tech-radar/adherence', () => {
       'message',
       "Package 'foo' is not on the tech radar. See https://github.com/acuminous/wiki for more details.",
     );
+  });
+
+  it('should tolerate unknown packages that are ignored', async () => {
+    const results = await createLinter('adherence', {
+      "tech-radar/adherence": [
+        "error",
+        {
+          documentation: "https://github.com/acuminous/wiki",
+          ignore: [
+            "foo",
+          ]
+        }
+      ],
+    }).lintFiles("package.json");
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('warningCount', 0);
   });
 });
 

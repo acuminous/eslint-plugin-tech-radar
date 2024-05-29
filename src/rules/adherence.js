@@ -40,6 +40,12 @@ const rule = {
               type: "string",
             },
           },
+          ignore: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
           documentation: {
             type: "string"
           }
@@ -56,15 +62,15 @@ const rule = {
       "Program:exit": (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
 
-        const { hold = [], access = [], trial = [], adopt = [], documentation } = (context.options[0] || {});
-        const allowed = [].concat(access, trial, adopt);
+        const { hold = [], access = [], trial = [], adopt = [], ignore = [], documentation } = (context.options[0] || {});
+        const allowed = [].concat(access, trial, adopt, ignore);
 
         const { text } = context.getSourceCode();
         const packageJson = new PackageJson(text);
 
         packageJson.forEachDependencySet((dependencies) => {
           Object.keys(dependencies).forEach((dependency) => {
-            if (hold.includes(dependency)) {
+            if (hold.includes(dependency) && !ignore.includes(dependency)) {
               context.report({
                 node,
                 messageId: 'discouraged',

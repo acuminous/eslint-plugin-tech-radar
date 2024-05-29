@@ -31,6 +31,8 @@ Reports packages that that do not adhere to the tech radar
         "pino",
         "sequelize"
       ],
+      "ignore": [
+       ],
       "documentation": "https://github.com/my-organisation/tech-radar"
     }
   ]
