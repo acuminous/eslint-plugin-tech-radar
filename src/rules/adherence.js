@@ -9,7 +9,7 @@ const rule = {
       unknown: "Package '{{ dependency }}' is not on the tech radar. See {{documentation}} for more details.",
     },
     docs: {
-      description: 'avoid using packages that are on hold',
+      description: 'avoid using packages that are on hold, being assessed or missing from the tech radar',
       category: 'Possible Errors',
       url: 'https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/adherence.md',
     },
