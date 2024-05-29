@@ -1,6 +1,12 @@
 # eslint-plugin-tech-radar
 
-A tech radar unfortunately won't stop engineering teams [choosing modules they shouldn't](https://www.stephen-cresswell.com/2024/04/17/prisma-and-the-naivety-of-crowds.html). When good intentions fail, use a good mechanism instead. One option is to install a private npm repository, but this blocks both direct and transitive dependencies, making it impractical to maintain. Another option is to scan repositories looking for illegal dependencies, but this is just slightly too late.
+[![NPM version](https://img.shields.io/npm/v/eslint-plugin-tech-radar.svg?style=flat-square)](https://www.npmjs.com/package/eslint-plugin-tech-radar)
+[![Node.js CI](https://github.com/acuminous/eslint-plugin-tech-radar/workflows/Node.js%20CI/badge.svg)](https://github.com/acuminous/eslint-plugin-tech-radar/actions?query=workflow%3A%22Node.js+CI%22)
+[![Code Climate](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/badges/gpa.svg)](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar)
+[![Test Coverage](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/badges/coverage.svg)](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/coverage)
+[![Discover zUnit](https://img.shields.io/badge/Discover-zUnit-brightgreen)](https://www.npmjs.com/package/zunit)
+
+A [tech radar](https://github.com/thoughtworks/build-your-own-radar) unfortunately won't stop engineering teams [choosing modules they shouldn't](https://www.stephen-cresswell.com/2024/04/17/prisma-and-the-naivety-of-crowds.html). When good intentions fail, use a good mechanism instead. One option is to install a private npm repository, but this blocks both direct and transitive dependencies, making it impractical to maintain. Another option is to scan repositories looking for illegal dependencies, but this is just slightly too late.
 
 Instead, the approach taken by this module is to write a custom eslint plugin for checking the dependencies listed in package.json. The rules can be defined in a [shared configuration](https://eslint.org/docs/latest/extend/shareable-configs), and just like eslint, run automatically on pre-commit/pre-push hooks and as part of a CI/CD pipeline. You also have a familiar escape hatch, should teams need to downgrade, ignore or reconfigure rules on a repository by repository basis.
 
