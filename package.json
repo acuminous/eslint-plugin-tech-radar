@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:acuminous/eslint-plugin-tech-radar.git"
-  },  
+  },
   "author": "Stephen Cresswell",
   "license": "ISC",
   "dependencies": {

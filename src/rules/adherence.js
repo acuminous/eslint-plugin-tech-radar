@@ -4,42 +4,49 @@ const rule = {
   meta: {
     type: "problem",
     messages: {
+      discouraged: "Package '{{ dependency }}' is discouraged. See {{documentation}} for more details.",
       unknown: "Package '{{ dependency }}' is not on the tech radar. See {{documentation}} for more details.",
     },
     docs: {
-      description: "avoid using packages that are not on the tech radar",
+      description: "avoid using packages that are on hold",
       category: "Possible Errors",
-      url: "https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/adopt.md",
+      url: "https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/adherence.md",
     },
     schema: [
       {
         type: "object",
         properties: {
-          adopt: {
-            type: "array",
-            items: {
-              type: "string",
-            },
-          },
           hold: {
             type: "array",
             items: {
               type: "string",
             },
           },
-          ignore: {
+          access: {
             type: "array",
             items: {
               type: "string",
             },
           },
-        	documentation: {
-        		type: "string"
-        	}
+          trial: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+          adopt: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+          documentation: {
+            type: "string"
+          }
         },
         required: [
-        	"documentation",
-      	],
+          "documentation",
+        ],
         additionalProperties: false,
       },
     ],
@@ -49,24 +56,34 @@ const rule = {
       "Program:exit": (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
 
-        const { adopt = [], hold = [], ignore = [], documentation } = (context.options[0] || {});
+        const { hold = [], access = [], trial = [], adopt = [], documentation } = (context.options[0] || {});
+        const allowed = [].concat(access, trial, adopt);
 
         const { text } = context.getSourceCode();
         const packageJson = new PackageJson(text);
 
         packageJson.forEachDependencySet((dependencies) => {
           Object.keys(dependencies).forEach((dependency) => {
-
-            if (!adopt.includes(dependency) && !hold.includes(dependency) && !ignore.includes(dependency)) {
+            if (hold.includes(dependency)) {
               context.report({
                 node,
-                messageId: 'unknown',
+                messageId: 'discouraged',
                 data: {
                   dependency,
                   documentation,
                 },
               });
             }
+						else if (!allowed.includes(dependency)) {
+				      context.report({
+				        node,
+				        messageId: 'unknown',
+				        data: {
+				          dependency,
+				          documentation,
+				        },
+				      });
+						}
           });
         });
       },

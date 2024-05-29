@@ -1,6 +1,6 @@
 {
-  "name": "unknown",
-  "description": "unknown fixture",
+  "name": "adherence",
+  "description": "adherence fixture",
   "license": "ISC",
   "dependencies": {
     "foo": "1.0.0"

@@ -1,11 +1,9 @@
-const { rule: hold } = require("./hold");
+const { rule: adherence } = require("./adherence");
 const { rule: latest } = require("./latest");
-const { rule: unknown } = require("./unknown");
 
 const rules = {
-  hold,
+  adherence,
   latest,
-  unknown,
 };
 
 module.exports = { rules };

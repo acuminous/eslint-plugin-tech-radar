@@ -1,8 +1,0 @@
-{
-  "name": "hold",
-  "description": "hold fixture",
-  "license": "ISC",
-  "dependencies": {
-    "foo": "1.0.0"
-  }
-}
