@@ -71,33 +71,13 @@ const rule = {
 
         packageJson.forEachDependencySet((dependencies) => {
           Object.keys(dependencies).forEach((dependency) => {
+            const data = { dependency, documentation };
             if (hold.includes(dependency) && !ignore.includes(dependency)) {
-              context.report({
-                node,
-                messageId: 'discouraged',
-                data: {
-                  dependency,
-                  documentation,
-                },
-              });
+              context.report({ node, messageId: 'discouraged', data });
             } else if (assess.includes(dependency)) {
-              context.report({
-                node,
-                messageId: 'assessment',
-                data: {
-                  dependency,
-                  documentation,
-                },
-              });
+              context.report({ node, messageId: 'assessment', data });
             } else if (!allowed.includes(dependency)) {
-              context.report({
-                node,
-                messageId: 'unknown',
-                data: {
-                  dependency,
-                  documentation,
-                },
-              });
+              context.report({ node, messageId: 'unknown', data });
             }
           });
         });
