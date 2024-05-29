@@ -42,14 +42,15 @@ const rule = {
         const { text } = context.getSourceCode();
         const packageJson = new PackageJson(text);
 
-        packageJson.forEachDependencySet((dependencies) => {
+        packageJson.forEachDependencySet((dependencies, set) => {
           Object.keys(dependencies).forEach((dependency) => {
 
             if (!packages.includes(dependency)) return;
             if (isUrl(dependencies[dependency])) return;
 
             const installed = getInstalledPackage(npmOptions, dependency);
-            if (!installed || installed.missing) {
+            if (!installed?.version || installed.missing) {
+              if (set === 'optionalDependencies') return;
               context.report({ node, messageId: 'missing', data: { dependency } });
               return;
             }

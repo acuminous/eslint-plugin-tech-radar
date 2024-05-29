@@ -128,13 +128,31 @@ describe('latest', () => {
     expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
+  it('should tolerate missing optional packages', async () => {
+    const results = await createLinter({
+      'tech-radar/latest': [
+        'error',
+        {
+          packages: [
+            'missing',
+          ],
+          cwd,
+        },
+      ],
+    }).lintFiles('package.json');
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('warningCount', 0);
+  });
+
   describe('latest-missing', () => {
 
     beforeEach(() => {
       cwd = path.resolve(__dirname, 'fixtures', 'latest-missing');
     });
 
-    it('should report missing packages', async () => {
+    it('should report missing, mandatory packages', async () => {
       const results = await createLinter({
         'tech-radar/latest': [
           'error',

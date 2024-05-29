@@ -14,7 +14,7 @@ module.exports = class PackageJson {
 
   forEachDependencySet(fn) {
     ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'].forEach((key) => {
-      fn(this.#source[key] || {});
+      fn(this.#source[key] || {}, key);
     });
   }
 };

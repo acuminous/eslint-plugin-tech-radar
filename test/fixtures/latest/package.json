@@ -8,5 +8,8 @@
     "lodash": "latest",
     "oubliette": "1.0.4",
     "zunit": "latest"
+  },
+  "optionalDependencies": {
+    "missing": "1.0.0"
   }
 }
