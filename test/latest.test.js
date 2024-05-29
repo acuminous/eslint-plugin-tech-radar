@@ -8,7 +8,7 @@ describe("latest", () => {
         "error",
         {
           packages: [
-            "semver"
+            "chalk"
           ],
         }
       ],
@@ -28,7 +28,7 @@ describe("latest", () => {
     );
     expect(results[0].messages[0]).toHaveProperty(
       "message",
-      "Package 'semver' version must be 7.6.2.",
+      "Package 'chalk' version must be 5.3.0.",
     );
   });
 
@@ -47,6 +47,53 @@ describe("latest", () => {
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty("errorCount", 0);
     expect(results[0]).toHaveProperty("warningCount", 0);
+  });
+
+  it("should tolerate local packages", async () => {
+    const results = await createLinter('latest', {
+      "tech-radar/latest": [
+        "error",
+        {
+          packages: [
+            "local"
+          ],
+        }
+      ],
+    }).lintFiles("package.json");
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty("errorCount", 0);
+    expect(results[0]).toHaveProperty("warningCount", 0);
+  });
+
+  it("should report missing packages", async () => {
+    const results = await createLinter('latest', {
+      "tech-radar/latest": [
+        "error",
+        {
+          packages: [
+            "missing"
+          ],
+        }
+      ],
+    }).lintFiles("package.json");
+
+    expect(results).toHaveLength(1);
+    expect(results[0]).toHaveProperty("errorCount", 1);
+    expect(results[0]).toHaveProperty("warningCount", 0);
+    expect(results[0].messages).toHaveLength(1);
+    expect(results[0].messages[0]).toHaveProperty(
+      "ruleId",
+      "tech-radar/latest",
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      "messageId",
+      "missing",
+    );
+    expect(results[0].messages[0]).toHaveProperty(
+      "message",
+      "Package 'missing' is not installed.",
+    );
   });
 });
 

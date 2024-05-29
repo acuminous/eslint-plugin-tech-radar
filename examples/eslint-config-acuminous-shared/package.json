@@ -1,0 +1,11 @@
+{
+  "name": "eslint-config-acuminous-shared",
+  "version": "1.0.0",
+  "description": "An example shared eslint config using eslint-plugin-tech-radar",
+  "author": "Stephen Cresswell",
+  "license": "ISC",
+  "main": "index.js",  
+  "dependencies": {
+    "eslint-plugin-tech-radar": "file:../.."
+  }
+}

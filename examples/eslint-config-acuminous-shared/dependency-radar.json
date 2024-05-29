@@ -1,0 +1,21 @@
+{
+  "hold": [
+    "prisma",
+    "winston",
+    "bunyan"
+  ],
+  "access": [
+    "@pgtyped/query"
+  ],
+  "trial": [
+    "orchid-orm"
+  ],
+  "adopt": [
+    "eslint",
+    "eslint-config-acuminous-shared",
+    "eslint-plugin-tech-radar",    
+    "pino",
+    "sequelize"
+  ],
+  "documentation": "https://github.com/acuminous/tech-radar"
+}

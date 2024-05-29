@@ -7,6 +7,7 @@ const rule = {
     type: "problem",
     messages: {
 			stale: "Package '{{ dependency }}' version must be {{version}}.",
+      missing: "Package '{{ dependency }}' is not installed.",
     },
     docs: {
       description: "use latest versions of specified dependencies",
@@ -42,16 +43,30 @@ const rule = {
 
             if (!packages.includes(dependency)) return;
 
-          	const installed = semver.minVersion(dependencies[dependency]).version;
-            const { version: latest } = npm({ format }).view(dependency, { json: true });
+            const expression = dependencies[dependency];
+            if (!semver.valid(expression) && !semver.validRange(expression)) return;
 
-            if (!semver.eq(installed, latest)) {
+            const { [dependency]: installed } = npm({ format }).ls({ json: true }).dependencies || {};
+            if (!installed) {
+              context.report({
+                node,
+                messageId: 'missing',
+                data: {
+                  dependency
+                },
+              });
+              return;
+            }
+
+            const latest = npm({ format }).view(dependency, { json: true });
+
+            if (!semver.eq(installed.version, latest.version)) {
               context.report({
                 node,
                 messageId: 'stale',
                 data: {
                   dependency,
-                  version: latest,
+                  version: latest.version,
                 },
               });
             }
