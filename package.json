@@ -1,8 +1,26 @@
 {
   "name": "eslint-plugin-tech-radar",
   "version": "1.0.0",
-  "description": "An eslint plugin to encourage adherence to your organisation's tech radar",
+  "description": "An eslint plugin to encourage adherence to an organisational tech radar",
   "main": "index.js",
+  "keywords": [
+    "eslint",
+    "plugin",
+    "dependencies",
+    "dependency",
+    "list",
+    "radar",
+    "tech radar",
+    "tech-radar",
+    "allow",
+    "allowed",
+    "whitelist",
+    "disallow",
+    "disallowed",
+    "forbid",
+    "forbidden",
+    "blacklist"
+  ],
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
@@ -12,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:acuminous/eslint-plugin-tech-radar.git"
+    "url": "git+ssh://git@github.com/acuminous/eslint-plugin-tech-radar.git"
   },
   "author": "Stephen Cresswell",
   "license": "ISC",
@@ -31,5 +49,14 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix"
+  },
+  "bugs": {
+    "url": "https://github.com/acuminous/eslint-plugin-tech-radar/issues"
+  },
+  "homepage": "https://github.com/acuminous/eslint-plugin-tech-radar#readme",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "test"
   }
 }

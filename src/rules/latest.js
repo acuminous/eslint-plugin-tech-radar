@@ -37,7 +37,7 @@ const rule = {
       'Program:exit': (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
         const { packages = [], cwd } = (context.options[0] || {});
-        const options = { cwd, stdio: 'pipe' };
+        const npmOptions = { cwd, stdio: 'pipe' };
 
         const { text } = context.getSourceCode();
         const packageJson = new PackageJson(text);
@@ -46,48 +46,18 @@ const rule = {
           Object.keys(dependencies).forEach((dependency) => {
 
             if (!packages.includes(dependency)) return;
+            if (isUrl(dependencies[dependency])) return;
 
-            const expression = dependencies[dependency];
-            if (expression.match(/^(?:file:|git:|github:|git\+ssh:|git\+https:|git\+http:|https:|http:)/)) return;
-
-            let installed;
-            try {
-              const { [dependency]: _installed } = npm({ options, format }).ls({ json: true }).dependencies || {};
-              installed = _installed;
-            } catch (err) {
-              if (!err.stdout) throw err;
-              const output = String(err.stdout);
-              try {
-                const json = JSON.parse(output);
-                const { [dependency]: _installed } = json.dependencies || {};
-                installed = _installed;
-              } catch (_) {
-                throw new Error(`Error listing dependencies:\n${output}`);
-              }
-            }
-
+            const installed = getInstalledPackage(npmOptions, dependency);
             if (!installed || installed.missing) {
-              context.report({
-                node,
-                messageId: 'missing',
-                data: {
-                  dependency,
-                },
-              });
+              context.report({ node, messageId: 'missing', data: { dependency } });
               return;
             }
 
-            const latest = npm({ cwd, format }).view(dependency, { json: true });
+            const latest = getLatestPackage(npmOptions, dependency);
 
             if (!semver.eq(installed.version, latest.version)) {
-              context.report({
-                node,
-                messageId: 'stale',
-                data: {
-                  dependency,
-                  version: latest.version,
-                },
-              });
+              context.report({ node, messageId: 'stale', data: { dependency, version: latest.version } });
             }
           });
         });
@@ -95,5 +65,30 @@ const rule = {
     };
   },
 };
+
+function isUrl(expression) {
+  return expression.match(/^(?:file:|git:|github:|git\+ssh:|git\+https:|git\+http:|https:|http:)/);
+}
+
+function getInstalledPackage(options, dependency) {
+  try {
+    const { [dependency]: installed } = npm({ options, format }).ls({ json: true }).dependencies || {};
+    return installed;
+  } catch (err) {
+    if (!err.stdout) throw err;
+    const output = String(err.stdout);
+    try {
+      const json = JSON.parse(output);
+      const { [dependency]: installed } = json.dependencies || {};
+      return installed;
+    } catch (_) {
+      throw new Error(`Error listing dependencies:\n${output}`);
+    }
+  }
+}
+
+function getLatestPackage(options, dependency) {
+  return npm({ options, format }).view(dependency, { json: true });
+}
 
 module.exports = { rule };
