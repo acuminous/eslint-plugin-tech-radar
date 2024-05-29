@@ -53,7 +53,7 @@ Requires the latest version of a module is installed
     "error",
     {
       "packages": [
-        "eslint-config-shared"
+        "eslint-config-shared-organisation-rules"
       ]
     }
   ]
