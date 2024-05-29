@@ -1,4 +1,4 @@
 module.exports = {
-  testMatch: ["**/test/**/*.test.js"],
-  verbose: true
+  testMatch: ['**/test/**/*.test.js'],
+  verbose: true,
 };

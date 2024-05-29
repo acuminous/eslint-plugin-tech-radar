@@ -1,4 +1,4 @@
-const { parseScript } = require("esprima");
+const { parseScript } = require('esprima');
 
 // We parse the JSON as JS, but since non of the rules use the AST, we don't fix the locations.
 function parseForESLint(text, options) {

@@ -1,65 +1,65 @@
-const PackageJson = require('../PackageJson.js');
+const PackageJson = require('../PackageJson');
 
 const rule = {
   meta: {
-    type: "problem",
+    type: 'problem',
     messages: {
       discouraged: "Package '{{ dependency }}' is discouraged. See {{documentation}} for more details.",
       unknown: "Package '{{ dependency }}' is not on the tech radar. See {{documentation}} for more details.",
     },
     docs: {
-      description: "avoid using packages that are on hold",
-      category: "Possible Errors",
-      url: "https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/adherence.md",
+      description: 'avoid using packages that are on hold',
+      category: 'Possible Errors',
+      url: 'https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/adherence.md',
     },
     schema: [
       {
-        type: "object",
+        type: 'object',
         properties: {
           hold: {
-            type: "array",
+            type: 'array',
             items: {
-              type: "string",
+              type: 'string',
             },
           },
           access: {
-            type: "array",
+            type: 'array',
             items: {
-              type: "string",
+              type: 'string',
             },
           },
           trial: {
-            type: "array",
+            type: 'array',
             items: {
-              type: "string",
+              type: 'string',
             },
           },
           adopt: {
-            type: "array",
+            type: 'array',
             items: {
-              type: "string",
+              type: 'string',
             },
           },
           ignore: {
-            type: "array",
+            type: 'array',
             items: {
-              type: "string",
+              type: 'string',
             },
           },
           documentation: {
-            type: "string"
-          }
+            type: 'string',
+          },
         },
         required: [
-          "documentation",
+          'documentation',
         ],
         additionalProperties: false,
       },
     ],
   },
-  create: function (context) {
+  create(context) {
     return {
-      "Program:exit": (node) => {
+      'Program:exit': (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
 
         const { hold = [], access = [], trial = [], adopt = [], ignore = [], documentation } = (context.options[0] || {});
@@ -79,17 +79,16 @@ const rule = {
                   documentation,
                 },
               });
+            } else if (!allowed.includes(dependency)) {
+              context.report({
+                node,
+                messageId: 'unknown',
+                data: {
+                  dependency,
+                  documentation,
+                },
+              });
             }
-						else if (!allowed.includes(dependency)) {
-				      context.report({
-				        node,
-				        messageId: 'unknown',
-				        data: {
-				          dependency,
-				          documentation,
-				        },
-				      });
-						}
           });
         });
       },

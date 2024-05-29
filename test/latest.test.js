@@ -1,97 +1,97 @@
 const path = require('node:path');
-const { ESLint } = require("eslint");
+const { ESLint } = require('eslint');
 
-describe("latest", () => {
-  it("should report stale packages", async () => {
+describe('latest', () => {
+  it('should report stale packages', async () => {
     const results = await createLinter('latest', {
-      "tech-radar/latest": [
-        "error",
+      'tech-radar/latest': [
+        'error',
         {
           packages: [
-            "chalk"
+            'chalk',
           ],
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
-    expect(results[0]).toHaveProperty("errorCount", 1);
-    expect(results[0]).toHaveProperty("warningCount", 0);
+    expect(results[0]).toHaveProperty('errorCount', 1);
+    expect(results[0]).toHaveProperty('warningCount', 0);
     expect(results[0].messages).toHaveLength(1);
     expect(results[0].messages[0]).toHaveProperty(
-      "ruleId",
-      "tech-radar/latest",
+      'ruleId',
+      'tech-radar/latest',
     );
     expect(results[0].messages[0]).toHaveProperty(
-      "messageId",
-      "stale",
+      'messageId',
+      'stale',
     );
     expect(results[0].messages[0]).toHaveProperty(
-      "message",
+      'message',
       "Package 'chalk' version must be 5.3.0.",
     );
   });
 
-  it("should ignore fresh packages", async () => {
+  it('should ignore fresh packages', async () => {
     const results = await createLinter('latest', {
-      "tech-radar/latest": [
-        "error",
+      'tech-radar/latest': [
+        'error',
         {
           packages: [
-            "oubliette"
+            'oubliette',
           ],
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
-    expect(results[0]).toHaveProperty("errorCount", 0);
-    expect(results[0]).toHaveProperty("warningCount", 0);
+    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
-  it("should tolerate local packages", async () => {
+  it('should tolerate local packages', async () => {
     const results = await createLinter('latest', {
-      "tech-radar/latest": [
-        "error",
+      'tech-radar/latest': [
+        'error',
         {
           packages: [
-            "local"
+            'local',
           ],
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
-    expect(results[0]).toHaveProperty("errorCount", 0);
-    expect(results[0]).toHaveProperty("warningCount", 0);
+    expect(results[0]).toHaveProperty('errorCount', 0);
+    expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
-  it("should report missing packages", async () => {
+  it('should report missing packages', async () => {
     const results = await createLinter('latest', {
-      "tech-radar/latest": [
-        "error",
+      'tech-radar/latest': [
+        'error',
         {
           packages: [
-            "missing"
+            'missing',
           ],
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
-    expect(results[0]).toHaveProperty("errorCount", 1);
-    expect(results[0]).toHaveProperty("warningCount", 0);
+    expect(results[0]).toHaveProperty('errorCount', 1);
+    expect(results[0]).toHaveProperty('warningCount', 0);
     expect(results[0].messages).toHaveLength(1);
     expect(results[0].messages[0]).toHaveProperty(
-      "ruleId",
-      "tech-radar/latest",
+      'ruleId',
+      'tech-radar/latest',
     );
     expect(results[0].messages[0]).toHaveProperty(
-      "messageId",
-      "missing",
+      'messageId',
+      'missing',
     );
     expect(results[0].messages[0]).toHaveProperty(
-      "message",
+      'message',
       "Package 'missing' is not installed.",
     );
   });
@@ -101,19 +101,19 @@ function createLinter(fixture, rules) {
   const cwd = path.resolve(__dirname, 'fixtures', fixture);
 
   return new ESLint({
-    extensions: [".json"],
+    extensions: ['.json'],
     cwd,
     overrideConfig: {
       overrides: [
         {
-          plugins: ["eslint-plugin-tech-radar"],
-          files: ["*.json"],
-          parser: "eslint-plugin-tech-radar",
+          plugins: ['eslint-plugin-tech-radar'],
+          files: ['*.json'],
+          parser: 'eslint-plugin-tech-radar',
           rules,
         },
       ],
     },
     ignore: false,
-    useEslintrc: true,
+    useEslintrc: false,
   });
 }

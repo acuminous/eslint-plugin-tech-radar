@@ -1,5 +1,5 @@
-const { rule: adherence } = require("./adherence");
-const { rule: latest } = require("./latest");
+const { rule: adherence } = require('./adherence');
+const { rule: latest } = require('./latest');
 
 const rules = {
   adherence,

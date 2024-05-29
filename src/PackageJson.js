@@ -2,19 +2,19 @@ const path = require('node:path');
 
 module.exports = class PackageJson {
 
-	#source;
+  #source;
 
-	static isPackageJsonFile(filePath) {
-		return path.basename(filePath) === "package.json";
-	}
+  static isPackageJsonFile(filePath) {
+    return path.basename(filePath) === 'package.json';
+  }
 
-	constructor(source) {
-		this.#source = JSON.parse(source);
-	}
+  constructor(source) {
+    this.#source = JSON.parse(source);
+  }
 
-	forEachDependencySet(fn) {
-		['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'].forEach((key) => {
-			fn(this.#source[key] || {});
-		})
-	}
-}
+  forEachDependencySet(fn) {
+    ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'].forEach((key) => {
+      fn(this.#source[key] || {});
+    });
+  }
+};

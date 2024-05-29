@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "eslint-config-airbnb-base",
+    "plugin:jest/recommended"
+  ],
+  "env": {
+    "node": true,
+    "jest/globals": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "2022"
+  },
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "arrow-body-style": 0,
+    "import/no-dynamic-require": 0,
+    "max-len": 0,
+    "no-console": "error",
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^_|debug|ok|eq|neq|deq|match|throws|rejects|describe|it|before|after|beforeEach|afterEach$",
+        "argsIgnorePattern": "^_\\w+"
+      }
+    ],
+    "object-curly-newline": 0,
+    "padded-blocks": 0,
+    "prefer-destructuring": 0,
+    "prefer-regex-literals": 0
+  }
+}

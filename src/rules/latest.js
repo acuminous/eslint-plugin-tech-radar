@@ -4,24 +4,24 @@ const PackageJson = require('../PackageJson');
 
 const rule = {
   meta: {
-    type: "problem",
+    type: 'problem',
     messages: {
-			stale: "Package '{{ dependency }}' version must be {{version}}.",
+      stale: "Package '{{ dependency }}' version must be {{version}}.",
       missing: "Package '{{ dependency }}' is not installed.",
     },
     docs: {
-      description: "use latest versions of specified dependencies",
-      category: "Possible Errors",
-      url: "https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/latest.md",
+      description: 'use latest versions of specified dependencies',
+      category: 'Possible Errors',
+      url: 'https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/latest.md',
     },
     schema: [
       {
-        type: "object",
+        type: 'object',
         properties: {
           packages: {
-            type: "array",
+            type: 'array',
             items: {
-              type: "string",
+              type: 'string',
             },
           },
         },
@@ -29,9 +29,9 @@ const rule = {
       },
     ],
   },
-  create: function (context) {
+  create(context) {
     return {
-      "Program:exit": (node) => {
+      'Program:exit': (node) => {
         if (!PackageJson.isPackageJsonFile(context.getFilename())) return;
         const { packages = [] } = (context.options[0] || {});
 
@@ -52,7 +52,7 @@ const rule = {
                 node,
                 messageId: 'missing',
                 data: {
-                  dependency
+                  dependency,
                 },
               });
               return;
@@ -77,4 +77,4 @@ const rule = {
   },
 };
 
-module.exports = { rule }
+module.exports = { rule };

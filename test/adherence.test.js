@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { ESLint } = require("eslint");
+const { ESLint } = require('eslint');
 
 describe('tech-radar/adherence', () => {
   it('should report held packages', async () => {
@@ -11,9 +11,9 @@ describe('tech-radar/adherence', () => {
             'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 1);
@@ -42,12 +42,12 @@ describe('tech-radar/adherence', () => {
             'foo',
           ],
           adopt: [
-            'foo'
+            'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 1);
@@ -76,12 +76,12 @@ describe('tech-radar/adherence', () => {
             'foo',
           ],
           ignore: [
-            'foo'
+            'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 0);
@@ -90,16 +90,16 @@ describe('tech-radar/adherence', () => {
 
   it('should allow adopted packages', async () => {
     const results = await createLinter('adherence', {
-      "tech-radar/adherence": [
-        "error",
+      'tech-radar/adherence': [
+        'error',
         {
           adopt: [
             'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 0);
@@ -108,49 +108,49 @@ describe('tech-radar/adherence', () => {
 
   it('should allow accessed packages', async () => {
     const results = await createLinter('adherence', {
-      "tech-radar/adherence": [
-        "error",
+      'tech-radar/adherence': [
+        'error',
         {
           access: [
             'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 0);
     expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
-  it('should allow accessed packages', async () => {
+  it('should allow trial packages', async () => {
     const results = await createLinter('adherence', {
-      "tech-radar/adherence": [
-        "error",
+      'tech-radar/adherence': [
+        'error',
         {
-          access: [
+          trial: [
             'foo',
           ],
           documentation: 'https://github.com/acuminous/tech-radar',
-        }
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 0);
     expect(results[0]).toHaveProperty('warningCount', 0);
   });
 
-	it('should report unknown packages', async () => {
+  it('should report unknown packages', async () => {
     const results = await createLinter('adherence', {
-      "tech-radar/adherence": [
-        "error",
+      'tech-radar/adherence': [
+        'error',
         {
-          documentation: "https://github.com/acuminous/wiki",
-        }
+          documentation: 'https://github.com/acuminous/wiki',
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 1);
@@ -172,16 +172,16 @@ describe('tech-radar/adherence', () => {
 
   it('should tolerate unknown packages that are ignored', async () => {
     const results = await createLinter('adherence', {
-      "tech-radar/adherence": [
-        "error",
+      'tech-radar/adherence': [
+        'error',
         {
-          documentation: "https://github.com/acuminous/wiki",
+          documentation: 'https://github.com/acuminous/wiki',
           ignore: [
-            "foo",
-          ]
-        }
+            'foo',
+          ],
+        },
       ],
-    }).lintFiles("package.json");
+    }).lintFiles('package.json');
 
     expect(results).toHaveLength(1);
     expect(results[0]).toHaveProperty('errorCount', 0);
@@ -206,6 +206,6 @@ function createLinter(fixture, rules) {
       ],
     },
     ignore: false,
-    useEslintrc: true,
+    useEslintrc: false,
   });
 }
