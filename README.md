@@ -28,7 +28,7 @@ Another snag is that a pre-commit hook is still too late to prevent undesirable 
    pino,adopt,backend,FALSE,Logging
    sequelize,adopt,backend,FALSE,Persistence
    ```
-1. Export the radar into a json file. 
+1. Export the Tech Radar to JSON rule configuration. 
    ```bash
    npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/acuminous/tech-radar > radar.json
    ```
