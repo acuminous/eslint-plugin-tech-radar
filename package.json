@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An eslint plugin to encourage adherence to an organisational tech radar",
   "main": "index.js",
+  "types": "./index.d.ts",  
   "keywords": [
     "eslint",
     "plugin",
@@ -40,6 +41,7 @@
     "semver": "^7.6.2"
   },
   "devDependencies": {
+    "@types/eslint": "^8.56.10",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "husky": "^9.0.11",
