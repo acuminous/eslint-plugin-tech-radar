@@ -9,7 +9,8 @@
     "node": ">=18.18.0"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "dependencies": "eslint ."
   },
   "dependencies": {
     "express": "^4.19.2",
