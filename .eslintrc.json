@@ -24,8 +24,8 @@
     "no-unused-vars": [
       "error",
       {
-        "varsIgnorePattern": "^_|debug|ok|eq|neq|deq|match|throws|rejects|describe|it|before|after|beforeEach|afterEach$",
-        "argsIgnorePattern": "^_\\w+"
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
       }
     ],
     "object-curly-newline": 0,
