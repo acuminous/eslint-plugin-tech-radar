@@ -1,18 +1,14 @@
 {
   "extends": [
-    "eslint-config-airbnb-base",
-    "plugin:jest/recommended"
+    "eslint-config-airbnb-base"
   ],
   "env": {
     "node": true,
-    "jest/globals": true
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": "2022"
   },
-  "plugins": [
-    "jest"
-  ],
   "rules": {
     "arrow-body-style": 0,
     "import/no-dynamic-require": 0,
