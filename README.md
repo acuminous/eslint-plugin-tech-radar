@@ -12,7 +12,7 @@ Instead, the approach taken by this module is to write a custom eslint plugin fo
 
 A snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Configure this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available. 
 
-Another snag is that a pre-commit hook is still to late to prevent undesirable dependencies from being installed. You can work around with with npm by adding a [dependencies script](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/package.json#L13) that runs eslint.
+Another snag is that a pre-commit hook is still to late to prevent undesirable dependencies from being installed. You can work around this by running eslint from an [npm dependencies script](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/package.json#L13).
 
 
 ## Instructions
@@ -36,7 +36,7 @@ npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://gi
 
 1. Create a shared configuration similar to [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the tech radar json file and eslint configuration from the module to make it easier to ignore specific dependencies in the repositories that use it.
 
-1. Include the shared configuration in your application's eslint rules, as per [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
+1. Include the shared configuration in your application's eslint rules as per [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
 
 ## Rules
 
