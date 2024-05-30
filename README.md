@@ -28,12 +28,10 @@ Another snag is that a pre-commit hook is still to late to prevent undesirable d
   pino,adopt,backend,FALSE,Logging
   sequelize,adopt,backend,FALSE,Persistence
   ```
-
 1. Export the radar into a json file. 
   ```bash
   npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/acuminous/tech-radar > radar.json
   ```
-
 1. Create a shared configuration similar to [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the tech radar json file and eslint configuration from the module to make it easier to ignore specific dependencies in the repositories that use it.
 
 1. Include the shared configuration in your application's eslint rules as per [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
