@@ -12,7 +12,7 @@ Instead, the approach taken by this module is to write a custom eslint plugin fo
 
 A snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Configure this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available. 
 
-Another snag is that a pre-commit hook is still to late to prevent undesirable dependencies from being installed. You can work around this by running eslint from an [npm dependencies script](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/package.json#L13).
+Another snag is that a pre-commit hook is still too late to prevent undesirable dependencies from being installed. You can work around this by running eslint from an [npm dependencies script](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/package.json#L13).
 
 
 ## Instructions
