@@ -6,7 +6,7 @@
 [![Test Coverage](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/badges/coverage.svg)](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/coverage)
 [![Discover zUnit](https://img.shields.io/badge/Discover-zUnit-brightgreen)](https://www.npmjs.com/package/zunit)
 
-A [tech radar](https://github.com/thoughtworks/build-your-own-radar) unfortunately doesn't stop engineering teams [installing modules they shouldn't](https://www.stephen-cresswell.com/2024/04/17/prisma-and-the-naivety-of-crowds.html). As Jeff Bezos says, "Good intentions don't work, good mechanisms do". One not very good mechanism is to use a private npm repository, but this blocks both direct and transitive dependencies, making it impractical to maintain. Another is to scan repositories looking for violations, but this is too late.
+A [Tech Radar](https://github.com/thoughtworks/build-your-own-radar) unfortunately doesn't stop engineering teams [installing modules they shouldn't](https://www.stephen-cresswell.com/2024/04/17/prisma-and-the-naivety-of-crowds.html). As Jeff Bezos says, "Good intentions don't work, good mechanisms do". One not very good mechanism is to use a private npm repository, but this blocks both direct and transitive dependencies, making it impractical to maintain. Another is to scan repositories looking for violations, but this is too late.
 
 Instead, the approach taken by this module is to write a custom eslint plugin for checking the dependencies listed in package.json. The rules can be defined in a [shared configuration](https://eslint.org/docs/latest/extend/shareable-configs), and just like eslint, run automatically on pre-commit/pre-push hooks and as part of a CI/CD pipeline. You also have a familiar escape hatch, should teams need to downgrade, ignore or reconfigure rules on a repository by repository basis. Better yet, changes to the rules will naturally be accompanied by documented discussion in the form of issues and/or pull requests.
 
@@ -17,7 +17,7 @@ Another snag is that a pre-commit hook is still too late to prevent undesirable 
 
 ## Instructions
 
-1. [Build](https://github.com/thoughtworks/build-your-own-radar) a tech radar for your node dependences. e.g.
+1. [Build a Tech Radar](https://github.com/thoughtworks/build-your-own-radar) for your node dependences. e.g.
    ```csv
    name,ring,quadrant,isNew,description
    prisma,hold,backend,FALSE,Persistence
@@ -32,15 +32,15 @@ Another snag is that a pre-commit hook is still too late to prevent undesirable 
    ```bash
    npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/acuminous/tech-radar > radar.json
    ```
-1. Create a shared configuration similar to [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the tech radar json file and eslint configuration from the module to make it easier to ignore specific dependencies in the repositories that use it.
+1. Create a shared configuration similar to this [example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the Tech Radar json file and eslint configuration from the module to make it easier to ignore specific dependencies in the repositories that use it.
 
-1. Include the shared configuration in your application's eslint rules as per [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
+1. Include the shared configuration in your application's eslint rules as per this [example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
 
 ## Rules
 
 ### tech-radar/adherence
 
-Reports packages that that do not adhere to the tech radar
+Reports packages that that do not adhere to the Tech Radar
 
 ```js
 "tech-radar/adherence": [
@@ -72,7 +72,7 @@ The linter will fail if package.json includes a dependency that is on hold or un
 
 ### tech-radar/latest
 
-Requires the latest version of a module is installed. Works with production, development, peer and optional dependencies (if installed). Ignores dependencies that are [specificed](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#urls-as-dependencies) by url.
+Requires the latest version of a module is installed. Works with production, development, peer and optional dependencies (if installed). Ignores dependencies that are [specificed  by url](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#urls-as-dependencies).
 
 ```js
 "tech-radar/latest": [
@@ -84,5 +84,5 @@ Requires the latest version of a module is installed. Works with production, dev
   }
 ]
 ```
-
-
+## Acknowledgements
+eslint-plugin-radar-tools was inspired by https://www.npmjs.com/package/eslint-plugin-package-json-dependencies
