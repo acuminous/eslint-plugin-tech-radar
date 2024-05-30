@@ -4,7 +4,7 @@ const rule = {
   meta: {
     type: 'problem',
     messages: {
-      assessment: "Package '{{ dependency }}' is being assessed and should not be depended upon. See {{documentation}} for more details.",
+      assessment: "Package '{{ dependency }}' is being assessed. See {{documentation}} for more details.",
       discouraged: "Package '{{ dependency }}' is discouraged. See {{documentation}} for more details.",
       unknown: "Package '{{ dependency }}' is not on the tech radar. See {{documentation}} for more details.",
     },

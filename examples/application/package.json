@@ -3,19 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "author": "Stephen Cresswell",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.8.0"
+  },  
   "scripts": {
     "lint": "eslint ."
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-plugin-tech-radar": "file:../..",    
-    "eslint-config-acuminous-shared": "file:../eslint-config-acuminous-shared/."
-  },
+  },  
   "dependencies": {
     "express": "^4.19.2",
     "pino": "^9.1.0",
     "prisma": "^5.14.0"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^9.3.0",
+    "eslint-config-acuminous-shared": "file:../eslint-config-acuminous-shared/.",
+    "eslint-plugin-tech-radar": "file:../.."
+  }  
 }

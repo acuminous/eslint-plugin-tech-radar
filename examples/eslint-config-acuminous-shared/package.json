@@ -4,7 +4,10 @@
   "description": "An example shared eslint config using eslint-plugin-tech-radar",
   "author": "Stephen Cresswell",
   "license": "ISC",
-  "main": "index.js",  
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.8.0"
+  },   
   "dependencies": {
     "eslint-plugin-tech-radar": "file:../.."
   }

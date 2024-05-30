@@ -140,7 +140,7 @@ describe('tech-radar/adherence', () => {
     );
     expect(results[0].messages[0]).toHaveProperty(
       'message',
-      "Package 'foo' is being assessed and should not be depended upon. See https://github.com/acuminous/tech-radar for more details.",
+      "Package 'foo' is being assessed. See https://github.com/acuminous/tech-radar for more details.",
     );
   });
 
