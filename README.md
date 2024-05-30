@@ -28,7 +28,7 @@ sequelize,adopt,backend,FALSE,Persistence
 
 1. Export the radar into a json file. 
 ```bash
-npx --package=eslint-plugin-tech-radar -- export-tech-radar dependencies-radar.csv https://github.com/acuminous/tech-radar > dependencies-radar.json
+npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/acuminous/tech-radar > radar.json
 ```
 
 1. Create a shared configuration similar to [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the tech radar json file and eslint configuration from the module to make it easier to ignore specific dependencies in the repositories that use it.
