@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "index.js",
   "engines": {
-    "node": ">=18.8.0"
+    "node": ">=18.18.0"
   },   
   "dependencies": {
     "eslint-plugin-tech-radar": "file:../.."

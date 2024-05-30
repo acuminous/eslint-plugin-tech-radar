@@ -6,11 +6,11 @@
   "author": "Stephen Cresswell",
   "license": "ISC",
   "engines": {
-    "node": ">=18.8.0"
-  },  
+    "node": ">=18.18.0"
+  },
   "scripts": {
     "lint": "eslint ."
-  },  
+  },
   "dependencies": {
     "express": "^4.19.2",
     "pino": "^9.1.0",
@@ -20,5 +20,5 @@
     "eslint": "^9.3.0",
     "eslint-config-acuminous-shared": "file:../eslint-config-acuminous-shared/.",
     "eslint-plugin-tech-radar": "file:../.."
-  }  
+  }
 }

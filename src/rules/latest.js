@@ -14,24 +14,24 @@ const rule = {
       category: 'Possible Errors',
       url: 'https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/latest.md',
     },
-  },
-  schema: [
-    {
-      type: 'object',
-      properties: {
-        packages: {
-          type: 'array',
-          items: {
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          packages: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+          cwd: {
             type: 'string',
           },
         },
-        cwd: {
-          type: 'string',
-        },
+        additionalProperties: false,
       },
-      additionalProperties: false,
-    },
-  ],
+    ],
+  },
   create(context) {
     return {
       'Program:exit': (node) => {
