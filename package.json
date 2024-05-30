@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An eslint plugin to encourage adherence to an organisational tech radar",
   "main": "index.js",
-  "types": "./index.d.ts",  
+  "types": "./index.d.ts",
   "keywords": [
     "eslint",
     "plugin",
@@ -29,6 +29,9 @@
     "lint-staged": "lint-staged",
     "prepare": "husky"
   },
+  "bin": {
+    "export-tech-radar": "./bin/export-tech-radar"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/acuminous/eslint-plugin-tech-radar.git"
@@ -38,6 +41,7 @@
   "dependencies": {
     "esprima": "~4.0.0",
     "oubliette": "^1.0.4",
+    "papaparse": "^5.4.1",
     "semver": "^7.6.2"
   },
   "devDependencies": {

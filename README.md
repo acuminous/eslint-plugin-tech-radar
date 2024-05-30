@@ -12,12 +12,28 @@ Instead, the approach taken by this module is to write a custom eslint plugin fo
 
 One snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Configure this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available.
 
-## How to use
+## Instructions
 
-1. Create a shared configuration similar to [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). It is best to export both the tech radar json file and eslint configuration to make it easier to ignore specific dependencies on a repository by repository basis.
+1. [Build](https://github.com/thoughtworks/build-your-own-radar) a tech radar for your node dependences. e.g.
+```csv
+name,ring,quadrant,isNew,description
+prisma,hold,backend,FALSE,Persistence
+winston,hold,backend,FALSE,Logging
+bunyan,hold,backend,FALSE,Logging
+@pgtyped/query,assess,TRUE,Persistence
+orchid-orm,trial,backend,FALSE,Persistence
+pino,adopt,backend,FALSE,Logging
+sequelize,adopt,backend,FALSE,Persistence
+```
 
-2. Include the shared configuration in your application's eslint rules, as per [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
+1. Export the radar into a json file. 
+```bash
+npx --package=eslint-plugin-tech-radar -- export-tech-radar dependencies-radar.csv https://github.com/acuminous/tech-radar > dependencies-radar.json
+```
 
+1. Create a shared configuration similar to [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the tech radar json file and eslint configuration from the module to make it easier to ignore specific dependencies in the repositories that use it.
+
+1. Include the shared configuration in your application's eslint rules, as per [this example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
 
 ## Rules
 

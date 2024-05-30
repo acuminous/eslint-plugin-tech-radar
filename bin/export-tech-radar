@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
+const parse = require('../src/parse-tech-radar.js')
+
+const args = process.argv.slice(2);
+
+const pathToCsv = path.resolve(args[0]);
+const csv = fs.readFileSync(pathToCsv, 'utf-8');
+const radar = {
+	...parse(csv),
+	documentation: args[1],
+}
+process.stdout.write(JSON.stringify(radar, null, 2) + os.EOL);

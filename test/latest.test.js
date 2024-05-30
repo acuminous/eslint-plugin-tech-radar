@@ -10,7 +10,7 @@ describe('latest', () => {
   });
 
   it('should report unknown config options', async () => {
-    await expect(createLinter({
+    await expect(() => createLinter({
       'tech-radar/latest': [
         'error',
         {

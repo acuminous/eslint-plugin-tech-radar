@@ -1,0 +1,11 @@
+name,ring,quadrant,isNew,description
+prisma,hold,backend,FALSE,Persistence
+winston,hold,backend,FALSE,Logging
+bunyan,hold,backend,FALSE,Logging
+@pgtyped/query,assess,backend,TRUE,Persistence
+orchid-orm,trial,backend,FALSE,Persistence
+eslint,adopt,backend,FALSE,Tooling
+eslint-config-acuminous-shared,adopt,backend,FALSE,Tooling
+eslint-plugin-tech-radar,adopt,backend,FALSE,Tooling
+pino,adopt,backend,FALSE,Logging
+sequelize,adopt,backend,FALSE,Persistence
