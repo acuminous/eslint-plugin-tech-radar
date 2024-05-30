@@ -9,6 +9,32 @@ describe('tech-radar/adherence', () => {
     cwd = path.resolve(__dirname, 'fixtures', 'adherence');
   });
 
+  it('should report missing documenation option', async () => {
+    await expect(createLinter({
+      'tech-radar/adherence': [
+        'error',
+        {
+          hold: [
+            'foo',
+          ],
+        },
+      ],
+    }).lintFiles('package.json')).rejects.toThrow("should have required property 'documentation'");
+  });
+
+  it('should report unknown config options', async () => {
+    await expect(createLinter({
+      'tech-radar/adherence': [
+        'error',
+        {
+          unknown: [
+            'foo',
+          ],
+        },
+      ],
+    }).lintFiles('package.json')).rejects.toThrow('should NOT have additional properties');
+  });
+
   it('should report held packages', async () => {
     const results = await createLinter({
       'tech-radar/adherence': [

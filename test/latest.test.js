@@ -9,6 +9,19 @@ describe('latest', () => {
     cwd = path.resolve(__dirname, 'fixtures', 'latest');
   });
 
+  it('should report unknown config options', async () => {
+    await expect(createLinter({
+      'tech-radar/latest': [
+        'error',
+        {
+          unknown: [
+            'foo',
+          ],
+        },
+      ],
+    }).lintFiles('package.json')).rejects.toThrow('should NOT have additional properties');
+  });
+
   it('should report stale semver packages', async () => {
 
     const results = await createLinter({

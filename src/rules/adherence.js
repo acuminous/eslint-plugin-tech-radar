@@ -13,51 +13,51 @@ const rule = {
       category: 'Possible Errors',
       url: 'https://github.com/acumimous/eslint-plugin-tech-radar/blob/master/docs/rules/adherence.md',
     },
-    schema: [
-      {
-        type: 'object',
-        properties: {
-          hold: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          assess: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          trial: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          adopt: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          ignore: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-          },
-          documentation: {
+  },
+  schema: [
+    {
+      type: 'object',
+      properties: {
+        hold: {
+          type: 'array',
+          items: {
             type: 'string',
           },
         },
-        required: [
-          'documentation',
-        ],
-        additionalProperties: false,
+        assess: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+        trial: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+        adopt: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+        ignore: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+        documentation: {
+          type: 'string',
+        },
       },
-    ],
-  },
+      required: [
+        'documentation',
+      ],
+      additionalProperties: false,
+    },
+  ],
   create(context) {
     return {
       'Program:exit': (node) => {
