@@ -55,7 +55,7 @@ The linter will fail if package.json includes a dependency that is on hold or un
 
 ### tech-radar/latest
 
-Requires the latest version of a module is installed. Works with production, development, peer and optional dependencies (if installed).
+Requires the latest version of a module is installed. Works with production, development, peer and optional dependencies (if installed). Ignores dependencies that are [specificed](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#urls-as-dependencies) by url.
 
 ```js
   "tech-radar/latest": [
