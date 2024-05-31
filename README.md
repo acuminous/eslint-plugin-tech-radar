@@ -101,7 +101,7 @@ Works with production, development, peer and optional dependencies (if installed
 > eslint .
 
 ~/your-application/package.json
-  1:1  error  Package 'eslint-config-your-organisation' is not on the tech radar. See https://github.com/your-organisation/tech-radar for more details  tech-radar/adherence
+  1:1  error  Package 'eslint-config-your-organisation' is not on the tech radar. See https://github.com/your-organisation/tech-radar for more details  tech-radar/latest
 
 ✖ 1 problem (1 error, 0 warnings)
 ```
