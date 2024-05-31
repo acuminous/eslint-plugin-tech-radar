@@ -10,7 +10,7 @@ A [Tech Radar](https://github.com/thoughtworks/build-your-own-radar) unfortunate
 
 Instead, the approach taken by this module is to write a custom eslint plugin for validating the dependencies listed in package.json. The rules can be defined in a [shared configuration](https://eslint.org/docs/latest/extend/shareable-configs), and just like eslint, run automatically on pre-commit/pre-push hooks and as part of a CI/CD pipeline. You also have a familiar escape hatch, should teams need to downgrade, ignore or reconfigure rules on a repository by repository basis. Better yet, changes to the rules can be accompanied by healthy and documentent discussion in the form of issues and/or pull requests.
 
-A snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Prime this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available. 
+A snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [latest rule](#tech-radarlatest) for ensuring that the latest published version of a module is installed. Prime this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available. 
 
 Another snag is that a pre-commit hook is still too late to prevent undesirable dependencies from being installed. You can work around this by running eslint from an [npm dependencies script](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/package.json#L13).
 
@@ -108,4 +108,4 @@ Works with production, development, peer and optional dependencies (if installed
 
 
 ## Acknowledgements
-eslint-plugin-radar-tools was inspired by https://www.npmjs.com/package/eslint-plugin-package-json-dependencies
+eslint-plugin-tech-radar was inspired by https://www.npmjs.com/package/eslint-plugin-package-json-dependencies
