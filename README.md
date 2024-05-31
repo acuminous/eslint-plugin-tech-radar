@@ -6,18 +6,18 @@
 [![Test Coverage](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/badges/coverage.svg)](https://codeclimate.com/github/acuminous/eslint-plugin-tech-radar/coverage)
 [![Discover zUnit](https://img.shields.io/badge/Discover-zUnit-brightgreen)](https://www.npmjs.com/package/zunit)
 
-A [Tech Radar](https://github.com/thoughtworks/build-your-own-radar) unfortunately doesn't stop engineering teams [installing modules they shouldn't](https://www.stephen-cresswell.com/2024/04/17/prisma-and-the-naivety-of-crowds.html). As Jeff Bezos says, "Good intentions don't work, good mechanisms do". One not very good mechanism is to use a private npm repository, but this blocks both direct and transitive dependencies, making it impractical to maintain. Another is to scan repositories looking for violations, but this is too late.
+A [Tech Radar](https://github.com/thoughtworks/build-your-own-radar) unfortunately doesn't prevent engineers [installing modules they shouldn't](https://www.stephen-cresswell.com/2024/04/17/prisma-and-the-naivety-of-crowds.html). As Jeff Bezos says, "Good intentions don't work, good mechanisms do". One not very good mechanism is to use a private npm repository, but this blocks both direct and transitive dependencies, making it impractical. Another is to scan repositories looking for violations, but this is too late.
 
-Instead, the approach taken by this module is to write a custom eslint plugin for checking the dependencies listed in package.json. The rules can be defined in a [shared configuration](https://eslint.org/docs/latest/extend/shareable-configs), and just like eslint, run automatically on pre-commit/pre-push hooks and as part of a CI/CD pipeline. You also have a familiar escape hatch, should teams need to downgrade, ignore or reconfigure rules on a repository by repository basis. Better yet, changes to the rules will naturally be accompanied by documented discussion in the form of issues and/or pull requests.
+Instead, the approach taken by this module is to write a custom eslint plugin for validating the dependencies listed in package.json. The rules can be defined in a [shared configuration](https://eslint.org/docs/latest/extend/shareable-configs), and just like eslint, run automatically on pre-commit/pre-push hooks and as part of a CI/CD pipeline. You also have a familiar escape hatch, should teams need to downgrade, ignore or reconfigure rules on a repository by repository basis. Better yet, changes to the rules can be accompanied by documented discussion in the form of issues and/or pull requests.
 
-A snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Configure this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available. 
+A snag with this approach is that the local install of the shared configuration must always be up-to-date. For this reason, eslint-plugin-tech-radar also includes a [rule](#tech-radarlatest) for ensuring that the latest version of a module is installed. Prime this with the name of your shared configuration module, and the linter will fail if a more recent version of the lint rules are available. 
 
 Another snag is that a pre-commit hook is still too late to prevent undesirable dependencies from being installed. You can work around this by running eslint from an [npm dependencies script](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/package.json#L13).
 
 
 ## Instructions
 
-1. [Build a Tech Radar](https://github.com/thoughtworks/build-your-own-radar) for your node dependences. e.g.
+1. Build a [Tech Radar](https://github.com/thoughtworks/build-your-own-radar) for your node dependences. e.g.
    ```csv
    name,ring,quadrant,isNew,description
    prisma,hold,backend,FALSE,Persistence
