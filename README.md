@@ -74,8 +74,8 @@ The linter will fail if package.json includes a dependency that is on hold or un
 > eslint .
 
 ~/your-application/package.json
-  1:1  error  Package 'express' is not on the tech radar. See https://github.com/your-organisation/tech-radar for more details  tech-radar/adherence
-  1:1  error  Package 'prisma' is discouraged. See https://github.com/your-organisation/tech-radar for more details             tech-radar/adherence
+  1:1  error  Package 'slonik' is not on the tech radar. See https://github.com/your-organisation/tech-radar for more details  tech-radar/adherence
+  1:1  error  Package 'prisma' is discouraged. See https://github.com/your-organisation/tech-radar for more details            tech-radar/adherence
 
 ✖ 2 problems (2 errors, 0 warnings)
 ```
