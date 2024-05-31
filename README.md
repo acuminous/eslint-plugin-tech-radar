@@ -70,7 +70,7 @@ Reports packages that that do not adhere to the Tech Radar
 
 The linter will fail if package.json includes a dependency that is on hold or under assessment. Use the `ignore` array to suppress errors about a dependency without removing it from `hold` or `access`. Works with production, development, peer and optional dependencies.
 
-```bash
+```
 > eslint .
 
 ~/your-application/package.json
@@ -97,7 +97,7 @@ Reports packages that are behind the latest version.
 
 Works with production, development, peer and optional dependencies (if installed). Ignores dependencies that are [specificed  by url](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#urls-as-dependencies).
 
-```bash
+```
 > eslint .
 
 ~/your-application/package.json
