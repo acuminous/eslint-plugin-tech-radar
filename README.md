@@ -63,26 +63,49 @@ Reports packages that that do not adhere to the Tech Radar
     ],
     "ignore": [
      ],
-    "documentation": "https://github.com/my-organisation/tech-radar"
+    "documentation": "https://github.com/your-organisation/tech-radar"
   }
 ]
 ``` 
 
 The linter will fail if package.json includes a dependency that is on hold or under assessment. Use the `ignore` array to suppress errors about a dependency without removing it from `hold` or `access`. Works with production, development, peer and optional dependencies.
 
+```bash
+> eslint .
+
+~/your-application/package.json
+  1:1  error  Package 'express' is not on the tech radar. See https://github.com/your-organisation/tech-radar for more details  tech-radar/adherence
+  1:1  error  Package 'prisma' is discouraged. See https://github.com/your-organisation/tech-radar for more details             tech-radar/adherence
+
+✖ 2 problems (2 errors, 0 warnings)
+```
+
 ### tech-radar/latest
 
-Requires the latest version of a module is installed. Works with production, development, peer and optional dependencies (if installed). Ignores dependencies that are [specificed  by url](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#urls-as-dependencies).
+Reports packages that are behind the latest version. 
 
 ```js
 "tech-radar/latest": [
   "error",
   {
     "packages": [
-      "eslint-config-my-organisation"
+      "eslint-config-your-organisation"
     ]
   }
 ]
 ```
+
+Works with production, development, peer and optional dependencies (if installed). Ignores dependencies that are [specificed  by url](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#urls-as-dependencies).
+
+```bash
+> eslint .
+
+~/your-application/package.json
+  1:1  error  Package 'eslint-config-your-organisation' is not on the tech radar. See https://github.com/your-organisation/tech-radar for more details  tech-radar/adherence
+
+✖ 1 problem (1 error, 0 warnings)
+```
+
+
 ## Acknowledgements
 eslint-plugin-radar-tools was inspired by https://www.npmjs.com/package/eslint-plugin-package-json-dependencies
