@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-tech-radar",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An eslint plugin to encourage adherence to an organisational tech radar",
   "main": "index.js",
   "types": "./index.d.ts",
