@@ -30,11 +30,15 @@ Another snag is that a pre-commit hook is still too late to prevent undesirable 
    ```
 1. Export the Tech Radar to JSON rule configuration. 
    ```bash
-   npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/your-organisation/tech-radar > radar.json
+   npx --package=eslint-plugin-tech-radar -- export-tech-radar \
+     --input radar.csv \
+     --documentation https://github.com/your-organisation/tech-radar \
+     --output radar.json
    ```
 1. Create a shared configuration similar to this [example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the Tech Radar [json file and eslint configuration](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/eslint-config-acuminous-shared/index.js#L4-L7) from the module to make it easier to [ignore specific dependencies](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/eslint.config.js#L13-L16) in the repositories that use it.
 
 1. Include the shared configuration in your application's eslint rules as per this [example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/application).
+
 
 ## Rules
 
@@ -105,6 +109,32 @@ Works with production, development, peer and optional dependencies (if installed
 
 ✖ 1 problem (1 error, 0 warnings)
 ```
+
+## Exporting Tech Radars
+As mentioned in the [instructions](#instructions), we provide a script for exporting Tech Radar csv files. This usage for this script is as follows...
+```
+Usage: npx --package eslint-plugin-tech-radar -- export-tech-radar [options]
+
+Options:
+  -i, --input <path>          Specify the path to the input file (optional)
+  -d, --documentation <url>   Specify the documentation url (mandatory)
+  -q, --quadrant <string>     Specify the quadrant used for dependencies (optional)
+  -o, --output <path>         Specify the path to the output file (optional)
+
+Examples:
+  cat radar.csv | npx --package eslint-plugin-tech-radar -- export-tech-radar \\
+    --documentation https://github.com/your-organisation/tech-radar \\
+    --quadrant dependencies \\
+  > radar.json
+
+  npx --package eslint-plugin-tech-radar -- export-tech-radar \\
+    --input radar.csv \\
+    --documentation https://github.com/your-organisation/tech-radar \\
+    --quadrant dependencies \\
+    --output radar.json
+```
+
+If an input file is not specified the script will read from stdin. If an output file is not specified the script will write to stdout. If a quadrant is specified, the script will only include entries for that quadrant.
 
 
 ## Acknowledgements

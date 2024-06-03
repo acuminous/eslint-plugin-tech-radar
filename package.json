@@ -40,6 +40,7 @@
   "license": "ISC",
   "dependencies": {
     "esprima": "~4.0.0",
+    "nopt": "^7.2.1",
     "oubliette": "^1.0.4",
     "papaparse": "^5.4.1",
     "semver": "^7.6.2"

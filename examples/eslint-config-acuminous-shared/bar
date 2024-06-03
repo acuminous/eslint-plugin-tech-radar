@@ -1,0 +1,21 @@
+{
+  "hold": [
+    "prisma",
+    "winston",
+    "bunyan"
+  ],
+  "assess": [
+    "@pgtyped/query"
+  ],
+  "trial": [
+    "orchid-orm"
+  ],
+  "adopt": [
+    "eslint",
+    "eslint-config-acuminous-shared",
+    "eslint-plugin-tech-radar",
+    "pino",
+    "sequelize"
+  ],
+  "documentation": "foo"
+}

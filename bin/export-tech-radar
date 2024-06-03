@@ -1,16 +1,109 @@
 #!/usr/bin/env node
 
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const parse = require('../src/parse-tech-radar.js')
+const os = require('node:os');
+const fs = require('node:fs');
+const path = require('node:path');
+const nopt = require('nopt');
+const parse = require('../src/parse-tech-radar.js');
 
-const args = process.argv.slice(2);
+const knownOpts = {
+  input: path,
+  documentation: String,
+  quadrant: String,
+  output: path
+};
 
-const pathToCsv = path.resolve(args[0]);
-const csv = fs.readFileSync(pathToCsv, 'utf-8');
-const radar = {
-	...parse(csv),
-	documentation: args[1],
+const shortHands = {
+  i : ['--input'],
+  d : ['--documentation'],
+  q : ['--quadrant'],
+  o : ['--output'],
 }
-process.stdout.write(JSON.stringify(radar, null, 2) + os.EOL);
+
+const usage = `
+Usage: npx --package eslint-plugin-tech-radar -- export-tech-radar [options]
+
+Options:
+  -i, --input <path>          Specify the path to the input file (optional)
+  -d, --documentation <url>   Specify the documentation url (mandatory)
+  -q, --quadrant <string>     Specify the quadrant used for dependencies (optional)
+  -o, --output <path>         Specify the path to the output file (optional)
+
+Examples:
+  cat radar.csv | npx --package eslint-plugin-tech-radar -- export-tech-radar \\
+    --documentation https://github.com/your-organisation/tech-radar \\
+    --quadrant dependencies \\
+  > radar.json
+
+  npx --package eslint-plugin-tech-radar -- export-tech-radar \\
+    --input radar.csv \\
+    --documentation https://github.com/your-organisation/tech-radar \\
+    --quadrant dependencies \\
+    --output radar.json
+`;
+
+nopt.invalidHandler = () => bail(usage, 1);
+
+const { input, documentation, quadrant, output } = nopt(knownOpts, shortHands);
+if (!documentation) bail(usage, 1);
+
+const readCsv = input ? readFile(input) : readInput();
+
+return readCsv.then((csv) => {
+  const radar = { ...parse(csv, quadrant), documentation };
+  const writeRadar = output ? writeFile(output, radar) : writeOutput(radar);
+  return writeRadar.then(() => {
+
+  });
+}).catch((err) => {
+  bail(err, 2);
+});
+
+function readFile(pathToCsv) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(pathToCsv, 'utf-8', (err, csv) => {
+      err ? reject(err) : resolve(csv);
+    });
+  });
+}
+
+function readInput() {
+  return new Promise((resolve, reject) => {
+    let input = '';
+    process.stdin.on('data', chunk => {
+      input += chunk;
+    });
+    process.stdin.on('end', () => {
+      resolve(input);
+    });
+    process.stdin.on('error', (err) => {
+      reject(err);
+    });
+    process.stdin.resume();
+  })
+}
+
+function writeFile(pathToRadar, radar) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(pathToRadar, serializeRadar(radar), 'utf-8', (err) => {
+      err ? reject(err) : resolve();
+    });
+  });
+}
+
+function writeOutput(radar) {
+  return new Promise((resolve, reject) => {
+    process.stdout.write(serializeRadar(radar), 'utf-8', (err) => {
+      err ? reject(err) : resolve();
+    })
+  })
+}
+
+function serializeRadar(radar) {
+  return JSON.stringify(radar, null, 2) + os.EOL;
+}
+
+function bail(context, code) {
+  console.error(context);
+  process.exit(code);
+}
