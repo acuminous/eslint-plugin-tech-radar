@@ -30,7 +30,7 @@ Another snag is that a pre-commit hook is still too late to prevent undesirable 
    ```
 1. Export the Tech Radar to JSON rule configuration. 
    ```bash
-   npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/acuminous/tech-radar > radar.json
+   npx --package=eslint-plugin-tech-radar -- export-tech-radar radar.csv https://github.com/your-organisation/tech-radar > radar.json
    ```
 1. Create a shared configuration similar to this [example](https://github.com/acuminous/eslint-plugin-tech-radar/tree/main/examples/eslint-config-acuminous-shared). Export the Tech Radar [json file and eslint configuration](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/eslint-config-acuminous-shared/index.js#L4-L7) from the module to make it easier to [ignore specific dependencies](https://github.com/acuminous/eslint-plugin-tech-radar/blob/main/examples/application/eslint.config.js#L13-L16) in the repositories that use it.
 
