@@ -138,4 +138,4 @@ If an input file is not specified the script will read from stdin. If an output 
 
 
 ## Acknowledgements
-eslint-plugin-tech-radar was inspired by https://www.npmjs.com/package/eslint-plugin-package-json-dependencies
+eslint-plugin-tech-radar was inspired by [eslint-plugin-package-json-dependencies](https://www.npmjs.com/package/eslint-plugin-package-json-dependencies)
