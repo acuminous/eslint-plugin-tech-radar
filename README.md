@@ -122,15 +122,15 @@ Options:
   -o, --output <path>         Specify the path to the output file (optional)
 
 Examples:
-  cat radar.csv | npx --package eslint-plugin-tech-radar -- export-tech-radar \\
-    --documentation https://github.com/your-organisation/tech-radar \\
-    --quadrant dependencies \\
+  cat radar.csv | npx --package eslint-plugin-tech-radar -- export-tech-radar \
+    --documentation https://github.com/your-organisation/tech-radar \
+    --quadrant dependencies \
   > radar.json
 
-  npx --package eslint-plugin-tech-radar -- export-tech-radar \\
-    --input radar.csv \\
-    --documentation https://github.com/your-organisation/tech-radar \\
-    --quadrant dependencies \\
+  npx --package eslint-plugin-tech-radar -- export-tech-radar \
+    --input radar.csv \
+    --documentation https://github.com/your-organisation/tech-radar \
+    --quadrant dependencies \
     --output radar.json
 ```
 
