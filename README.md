@@ -111,7 +111,7 @@ Works with production, development, peer and optional dependencies (if installed
 ```
 
 ## Exporting Tech Radars
-As mentioned in the [instructions](#instructions), we provide a script for exporting Tech Radar csv files. This usage for this script is as follows...
+As mentioned in the [instructions](#instructions), we provide a script for exporting Tech Radar csv files. The usage for this script is as follows...
 ```
 Usage: npx --package eslint-plugin-tech-radar -- export-tech-radar [options]
 
@@ -121,11 +121,7 @@ Options:
   -q, --quadrant <string>     Specify the quadrant used for dependencies (optional)
   -o, --output <path>         Specify the path to the output file (optional)
 
-Examples:
-  cat radar.csv | npx --package eslint-plugin-tech-radar -- export-tech-radar \
-    --documentation https://github.com/your-organisation/tech-radar \
-    --quadrant dependencies \
-  > radar.json
+Example:
 
   npx --package eslint-plugin-tech-radar -- export-tech-radar \
     --input radar.csv \
